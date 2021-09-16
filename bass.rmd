@@ -1,0 +1,73 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+title: "Proportional Volume Distributions by Region"
+author: "Anna MacFarlane and Jasmine King"
+date: "9/16/2021"
+output: pdf_document
+---
+  
+```{r setup, include=FALSE}
+library(tidyverse)
+library(ggplot2)
+new <- read.csv("Mouse_Info - Sheet1.csv")
+new <- new %>%
+  filter(! is.na(Treatment)) %>%
+  filter(Treatment != "") %>%
+  # mutate(mouse = case_when(
+  #   Genotype == "APOE2" | Genotype == "APOE22" ~ "APOE2",
+  #   Genotype == "APOE3" | Genotype == "APOE33" ~ "APOE3",
+  #   Genotype == "APOE4" | Genotype == "APOE44" ~ "APOE4",
+  #   Genotype == "CVN" ~ "CVN"
+  # )) %>%
+  group_by(Treatment)
+view(new)
+
+t1<-new %>%
+filter(Time.Point==1)
+
+t2<-new %>%
+filter(Time.Point==2)
+
+t3<-new %>%
+filter(Time.Point==3)
+```
+
+
+# ## Adjusted p-values for multiple comparisons
+# ```{r corrections, echo = FALSE}
+# p.adjust(corrRight$pval, method = "fdr", n = )
+# ```
+
+
+```{r Brain, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), BrainVolume, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Brain Volume",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(BrainVolume ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+    
+    #mylm_cut <- subset(mylm, select=c('F value', 'Pr(>F)'))
+    #write.csv(mylm_cut,'/Users/', row_names=TRUE)
+```
+
+# ```{r}
+#   brainvol_violin("Exterior", "Exterior")
+#   
+#   for(i in 2:332){
+#     brainreg <- paste("X", toString(i), sep="")
+#     title_str <- paste("Region", toString(i), sep="")
+#     brainvol_violin(brainreg,title_str)
+#   }
+# ```
+
+
