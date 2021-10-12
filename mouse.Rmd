@@ -1,0 +1,5099 @@
+---
+title: "Bass"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(ggplot2)
+new <- read.csv("Mouse_Info - Sheet1.csv")
+new <- new %>%
+  filter(! is.na(Treatment)) %>%
+  filter(Treatment != "") %>%
+  # mutate(mouse = case_when(
+  #   Genotype == "APOE2" | Genotype == "APOE22" ~ "APOE2",
+  #   Genotype == "APOE3" | Genotype == "APOE33" ~ "APOE3",
+  #   Genotype == "APOE4" | Genotype == "APOE44" ~ "APOE4",
+  #   Genotype == "CVN" ~ "CVN"
+  # )) %>%
+  group_by(Treatment)
+view(new)
+
+t1<-new %>%
+filter(Time.Point==1)
+
+t2<-new %>%
+filter(Time.Point==2)
+
+t3<-new %>%
+filter(Time.Point==3)
+```
+
+
+# ## Adjusted p-values for multiple comparisons
+# ```{r corrections, echo = FALSE}
+# p.adjust(corrRight$pval, method = "fdr", n = )
+# ```
+
+
+```{r Brain, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), BrainVolume, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Brain Volume",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(BrainVolume ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+    
+    #mylm_cut <- subset(mylm, select=c('F value', 'Pr(>F)'))
+    #write.csv(mylm_cut,'/Users/', row_names=TRUE)
+```
+```{r Exterior, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), Exterior, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Exterior",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(Exterior ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```   
+
+```{r X1, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "A24a Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```   
+
+```{r X2, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X2, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "A24aPrime Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X2 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```  
+ 
+
+```{r X3, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X3, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "A24b Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X3 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+``` 
+ 
+ 
+```{r X4, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X4, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "A24bPrime Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X4 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+ 
+ 
+```{r X5, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X5, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "A29a Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X5 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+ 
+ 
+```{r X6, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X6, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "A29b Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X6 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+ 
+ 
+```{r X7, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X7, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "A29c Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X7 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+ 
+ 
+```{r X8, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X8, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "A30 Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X8 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+ 
+ 
+```{r X9, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X9, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "A32 Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X9 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+ 
+ 
+```{r X10, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X10, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Au1 Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X10 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+ 
+ 
+```{r X11, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X11, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "AuD Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X11 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+ 
+ 
+```{r X12, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X12, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "AuV Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X12 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+ 
+ 
+```{r X13, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X13, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "DLO Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X13 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+ 
+ 
+```{r X14, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X14, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Fr3 Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X14 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+ 
+  
+```{r X15, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X15, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "FrA Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X15 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+ 
+  
+```{r X16, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X16, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Ins Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X16 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+ 
+  
+```{r X17, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X17, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "LO Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X17 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+ 
+  
+```{r X18, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X18, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "LPtA Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X18 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+ 
+  
+```{r X19, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X19, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "M1 Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X19 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+ 
+  
+```{r X20, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X20, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "M2 Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X20 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+ 
+   
+```{r X21, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X21, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "MO Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X21 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+ 
+   
+```{r X22, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X22, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "MPtA Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X22 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+ 
+   
+```{r X23, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X23, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "PtPR Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X23 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+ 
+   
+```{r X24, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X24, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "S1 Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X24 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+ 
+   
+```{r X25, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X25, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "S1BF Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X25 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+ 
+   
+```{r X26, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X26, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "S1DZ Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X26 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+ 
+   
+```{r X27, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X27, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "S1FL Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X27 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+ 
+   
+```{r X28, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X28, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "S1HL Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X28 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+ 
+   
+```{r X29, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X29, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "S1J Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X29 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+ 
+   
+```{r X30, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X30, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "S1Sh Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X30 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+ 
+```{r X31, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X31, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "S1Tr Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X31 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+ 
+```{r X32, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X21, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "S1ULp Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X32 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+ 
+```{r X33, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X33, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "S2 Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X33 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+ 
+```{r X34, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X34, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "TeA Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X34 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+ 
+```{r X35, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X35, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "V1 Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X35 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+ 
+```{r X36, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X36, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "V1B Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X36 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+ 
+```{r X37, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X37, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "V1M Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X37 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+ 
+```{r X38, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X38, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "V2L Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X38 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+ 
+```{r X39, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X39, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "V2ML Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X39 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+ 
+```{r X40, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X40, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "V2MM Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X40 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+ 
+```{r X41, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X41, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "VO Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X41 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+
+```{r X42, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X42, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "CEnt Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X42 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+``` 
+
+
+```{r X43, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X43, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "DIEnt Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X43 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+``` 
+
+
+```{r X44, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X44, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "DLEnt Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X44 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+``` 
+
+
+```{r X45, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X45, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "MEnt Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X45 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+``` 
+
+
+```{r X46, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X46, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "VIEnt Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X46 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+``` 
+
+
+```{r X47, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X47, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Cl Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X47 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+``` 
+
+
+```{r X48, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X48, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "DCl Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X48 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+``` 
+
+
+```{r X49, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X49, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "PLCo Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X49 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+``` 
+
+
+```{r X50, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X50, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "VCl Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X50 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+``` 
+
+
+```{r X51, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X51, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Hc Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X51 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+``` 
+
+```{r X52, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X52, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "DTT Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X52 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+``` 
+
+```{r X53, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X53, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Ect Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X53 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+``` 
+
+```{r X54, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X54, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "PaS Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X54 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+``` 
+
+```{r X55, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X55, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "PRh Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X55 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+``` 
+
+```{r X56, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X56, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "PrS Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X56 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+``` 
+
+```{r X57, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X57, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Pir Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X57 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+``` 
+
+```{r X58, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X58, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "APir Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X58 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+``` 
+
+```{r X59, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X59, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Hyp Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X59 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+``` 
+
+```{r 60, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X60, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Preopt Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X60 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+``` 
+
+
+```{r 61, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X61, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Sthal Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X61 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+``` 
+
+
+```{r 62, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X62, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "SPT Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X62 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+``` 
+
+
+```{r 63, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X63, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "GP Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X63 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+``` 
+
+
+```{r 64, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X64, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "CPu Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X64 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+``` 
+
+
+```{r 65, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X65, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Amy Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X65 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+``` 
+
+```{r 66, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X66, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Acb Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X66 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+``` 
+
+```{r 67, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X67, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "BNst Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X67 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+``` 
+
+```{r 68, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X68, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Vpal Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X68 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+``` 
+
+```{r 69, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X69, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "PAG Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X69 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+``` 
+
+```{r 70, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X70, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "APT Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X70 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+``` 
+
+```{r 71, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X71, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "VTA Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X71 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+``` 
+
+```{r 72, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X72, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Thal_R Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X72 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+``` 
+
+```{r 73, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X73, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "VT Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X73 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+``` 
+
+```{r 74, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X74, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "LDNT Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X74 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+
+```{r 75, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X75, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "MGN Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X75 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+``` 
+
+```{r 76, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X76, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "LGN Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X76 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+``` 
+
+```{r 77, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X77, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "ZI Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X77 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+``` 
+
+```{r 78, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X78, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "RTN Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X78 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+``` 
+
+```{r 79, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X79, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Sub_PP Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X79 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+``` 
+
+```{r 80, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X80, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "DpMe Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X80 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+``` 
+
+```{r 81, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X81, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "SC Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X81 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+``` 
+
+```{r 82, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X82, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "IC Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X82 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+``` 
+
+```{r 83, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X82, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "SN Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X82 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+``` 
+
+```{r 84, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X84, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "RPC Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X84 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 85, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X85, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "MRN Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X85 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 86, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X86, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "RI Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X86 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 87, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X87, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Cn Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X87 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 88, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X88, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "PrCn Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X88 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 89, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X89, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "BS_R Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X89 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 90, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X90, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Iped Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X90 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 91, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X91, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Cb_1_10 Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X91 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 92, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X92, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Den Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X92 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 93, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X93, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Int Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X93 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+
+```{r 94, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X94, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "FasDL  Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X94 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 95, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X95, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "FasMed Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X95 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+
+```{r 96, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X96, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "VII Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X96 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 97, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X97, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "ParB Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X97 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 98, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X98, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "KF Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X98 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 99, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X99, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "PCRt Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X99 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 100, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X100, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "CG Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X100 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 101, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X101, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Su5 Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X101 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 102, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X102, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "m5 Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X102 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 103, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X103, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "5N Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X103 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 104, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X104, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "PnO Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X104 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 105, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X105, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Raph Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X105 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 106, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X106, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Pr5 Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X106 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 107, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X107, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "DTg Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X107 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 108, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X108, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Tg Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X108 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 109, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X109, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "CoN Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X109 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 110, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X110, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Pn Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X110 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 111, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X111, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "RTg Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X111 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 112, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X112, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Oliv Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X112 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 113, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X113, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "PnC Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X113 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 114, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X114, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Sp5 Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X114 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 115, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X115, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Ve Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X115 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 116, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X116, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Gi Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X116 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r 117, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X117, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Cu Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X117 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 118, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X118, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "ac Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X118 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 119, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X119, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "ot Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X119 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 120, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X120, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "fi Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X120 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 121, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X121, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "cc Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X121 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 122, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X122, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "fx Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X122 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 123, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X123, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "st Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X123 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 124, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X124, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "cg Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X124 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 125, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X125, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "lo Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X125 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 126, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X126, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "vhc Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X126 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 127, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X127, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "ic Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X127 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 128, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X128, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "fr Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X128 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 129, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X129, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "sm Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X129 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 130, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X130, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "mt Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X130 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 131, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X131, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "pc Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X131 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 132, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X132, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "bsc Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X132 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 133, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X133, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "cp Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X133 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 134, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X134, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "ll Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X134 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 135, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X135, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "sp5 Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X135 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 136, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X136, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "py Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X136 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 137, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X137, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "n8 Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X137 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 138, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X138, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "n7 Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X138 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 139, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X139, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "lfp Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X139 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 140, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X140, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "mlf_ts Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X140 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 141, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X141, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "sc Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X141 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+
+```{r 142, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X142, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "ml Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X142 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+
+```{r 143, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X143, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "vsc Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X143 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+
+```{r 144, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X144, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "mcp Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X144 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+
+```{r 145, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X145, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "scp Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X145 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+
+```{r 146, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X146, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "icp_oc_tz Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X146 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+
+```{r 147, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X147, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "cbw Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X147 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+
+```{r 148, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X148, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "LV Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X148 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+
+```{r 149, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X149, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "A25 Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X149 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+
+```{r 150, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X150, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "das Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X150 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+
+```{r 151, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X151, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Post Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X151 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 152, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X152, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "4V Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X152 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 153, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X153, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "MiTg Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X153 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 154, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X154, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "PT Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X154 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 155, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X155, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "LDVL Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X155 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 156, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X156, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "LP Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X156 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 157, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X157, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Athal Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X157 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 158, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X158, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "RMC Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X158 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 159, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X159, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "PaR Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X159 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 160, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X160, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "RR Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X160 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 161, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X161, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "CSF Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X161 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 162, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X162, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "IRN Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X162 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 163, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X163, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "PHD_PaMP_Post_and_LatHy Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X163 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 164, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X164, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "PR_p3Tg_L Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X164 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 165, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X165, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "PVG Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X165 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r 166, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X166, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "BLA Left",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X166 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+ ```{r X1001, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1001, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "A24a Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1001 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+ ```{r X1002, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1002, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "A24aPrime Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1002 ~ Treatment * Genotype * Time.Point, new)
+     summary(mylm)
+    anova(mylm)
+```
+
+
+ ```{r X1003, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1003, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "A24b Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1003 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+
+
+ ```{r X1004, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1004, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "A24bPrime Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1004 ~ Treatment * Genotype * Time.Point, new)
+   summary(mylm)
+    anova(mylm)
+```
+
+
+ ```{r X1005, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1005, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "A29a Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1005 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+
+
+ ```{r X1006, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1006, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "A29b Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1006 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+
+
+
+ ```{r X1007, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1007, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "A29c Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1007 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+
+
+ ```{r X1008, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1008, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "A30 Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1008 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+
+
+
+
+
+ ```{r X1009, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1009, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "A32 Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1009 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+
+ ```{r X1010, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1010, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Au1 Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1010 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+
+ ```{r X1011, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1011, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "AuD Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1011 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+
+ ```{r X1012, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1012, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "AuV Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1012 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+
+
+ ```{r X1013, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1013, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "DLO Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1013 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+
+ ```{r X1014, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1014, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Fr3 Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1014 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+
+ ```{r X1015, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1015, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "FrA Right",
+         subtitle = "Red points denoting outliers")
+
+    mylm <- lm(X1015 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+
+ ```{r X1016, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1016, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Ins Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1016 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+
+ ```{r X1017, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1017, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "LO Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1017 ~ Treatment * Genotype * Time.Point, new)
+   summary(mylm)
+    anova(mylm)
+```
+
+
+
+ ```{r X1018, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1018, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "LPtA Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1018 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+
+ ```{r X1019, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1019, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "M1 Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1019 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+ ```{r X1020, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1020, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "M2 Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1020 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+ ```{r X1021, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1021, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "MO Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1021 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+ ```{r X1022, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1022, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "MPtA Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1022 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+ ```{r X1023, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1023, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "PtPR Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1023 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1024, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1024, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "S1 Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1024 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1025, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1025, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "S1BF Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1025 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1026, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1026, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "S1DZ Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1026 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1027, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1027, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "S1FL Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1027 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1028, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1028, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "S1HL Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1028 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1029, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1029, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "S1J Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1029 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1030, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1030, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "S1Sh Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1030 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1031, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1031, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "S1Tr Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1031 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1032, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1032, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "S1ULp Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1032 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+
+
+```{r X1033, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1033, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "S2 Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1033 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1034, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1034, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "TeA Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1034 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1035, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1035, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "V1 Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1035 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1036, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1036, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "V1B Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1036 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1037, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1037, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "V1M Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1037 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+
+```{r X1038, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1038, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "V2L Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1038 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+
+```{r X1039, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1039, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "V2ML Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1039 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+
+
+```{r X1040, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1040, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "V2MM Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1040 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1041, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1041, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "VO Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1041 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1042, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1042, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "CEnt Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1042 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+
+```{r X1043, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1043, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "DIEnt Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1043 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1044, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1044, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "DLEnt Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1044 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1045, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1045, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "MEnt Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1045 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1046, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1046, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "VIEnt Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1046 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1047, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1047, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Cl Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1047 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1048, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1048, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "DCl Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1048 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1049, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1049, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "PLCo Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1049 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1050, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1050, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "VCl Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1050 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1051, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1051, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Hc Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1051 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+
+```{r X1052, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1052, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "DTT Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1052 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1053, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1053, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Ect Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1053 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+
+```{r X1054, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1054, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "PaS Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1054 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1055, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1055, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "PRh Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1055 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1056, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1056, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "PrS Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1056 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1057, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1057, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Pir Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1057 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1058, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1058, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "APir Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1058 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+
+
+
+```{r X1059, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1059, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Hyp Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1059 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1060, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1060, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Pre_Tel Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1060 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1061, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1061, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Sthal Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1061 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1062, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1062, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "SPT Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1062 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1063, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1063, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "GP Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1063 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1064, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1064, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "CPu Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1064 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1065, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1065, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Amy Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1065 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1066, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1066, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Acb Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1066 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1067, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1067, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "BNst Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1067 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1068, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1068, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Vpal Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1068 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1069, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1069, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "PAG Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1069 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1070, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1070, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "APT Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1070 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+
+
+```{r X1071, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1071, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "VTA Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1071 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1072, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1072, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Thal_R Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1072 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1073, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1073, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "VT Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1073 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1074, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1074, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "LDNT Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1074 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1075, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1075, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "MGN Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1075 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+
+```{r X1076, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1076, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "LGN Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1076 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1077, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1077, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "ZI Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1077 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+
+```{r X1078, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1078, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "RTN Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1078 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1079, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1079, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Sub_PP Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1079 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1080, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1080, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "DpMe Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1080 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1081, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1081, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "SC Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1081 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1082, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1082, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "IC Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1082 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1083, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1083, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "SN Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1083 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1084, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1084, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "RPC Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1084 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1085, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1085, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "MRN Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1085 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1086, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1086, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "RI Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1086 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1087, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1087, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Cn Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1087 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1088, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1088, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "PrCn Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1088 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1089, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1089, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "BS_R Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1089 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1090, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1090, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "IPed Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1090 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1091, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1091, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Cb_1_10 Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1091 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+
+```{r X1092, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1092, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Den Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1092 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1093, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1093, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Int Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1093 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1094, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1094, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "FasDL Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1094 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+
+```{r X1095, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1095, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "FasMed Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1095 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1096, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1096, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Vll Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1096 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1097, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1097, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "ParB Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1097 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1098, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1098, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "KF Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1098 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1099, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1099, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "PCRt Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1099 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1100, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1100, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "CG Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1100 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1101, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1101, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Su5 Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1101 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1102, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1102, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "m5 Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1102 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1103, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1103, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "5N Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1103 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1104, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1104, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "PnC Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1104 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1105, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1105, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Raph Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1105 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1106, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1106, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Pr5 Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1106 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+
+
+```{r X1107, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1107, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "DTg Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1107 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r X1108, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1108, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Tg Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1108 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r X1109, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1109, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "CoN Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1109 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1110, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1110, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Pn Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1110 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1111, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1111, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "RTg Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1111 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r X1112, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1112, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Oliv Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1112 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r X1113, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1113, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "PnRt Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1113 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1114, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1114, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Sp5 Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1114 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r X1115, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1115, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Ve Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1115 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r X1116, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1116, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Gi Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1116 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r X1117, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1117, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Cu Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1117 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r X1118, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1118, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "ac Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1118 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r X1119, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1119, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "ot Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1119 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r X1120, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1120, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "fi Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1120 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r X1121, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1121, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "cc Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1121 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r X1122, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1122, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "fx Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1122 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r X1123, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1123, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "st Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1123 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r X1124, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1124, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "cg Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1124 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r X1125, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1125, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "lo Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1125 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r X1126, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1126, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "vhc Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1126 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r X1127, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1127, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "ic Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1127 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r X1128, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1128, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "fr Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1128 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r X1129, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1129, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "sm Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1129 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r X1130, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1130, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "mt Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1130 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r X1131, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1131, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "pc Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1131 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r X1132, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1132, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "bsc Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1132 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r X1133, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1133, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "cp Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1133 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r X1134, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1134, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "ll Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1134 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r X1135, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1135, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "sp5 Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1135 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r X1136, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1136, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "py Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1136 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r X1137, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1137, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "n8 Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1137 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r X1138, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1138, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "n7 Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1138 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r X1139, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1139, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "lfp Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1139 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r X1140, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1140, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "mlf_ts Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1140 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r X1141, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1141, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "sc Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1141 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r X1142, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1142, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "ml Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1142 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r X1143, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1143, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "vsc Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1143 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r X1144, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1144, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "mcp Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1144 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r X1145, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1145, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "scp Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1145 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r X1146, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1146, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "icp_oc_tz Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1146 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r X1147, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1147, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "cbw Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1147 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r X1148, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1148, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "LV Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1148 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r X1149, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1149, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "A25 Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1149 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r X1150, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1150, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "das Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1150 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r X1151, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1151, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "Post Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1151 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r X1152, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1152, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "4V Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1152 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r X1153, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1153, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "MiTg Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1153 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r X1154, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1154, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "APT Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1154 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r X1155, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1155, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "LDVL Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1155 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r X1156, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1156, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "LP Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1156 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r X1157, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1157, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "AThal Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1157 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r X1158, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1158, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "RMC Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1158 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r X1159, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1159, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "PaR Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1159 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r X1160, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1160, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "RR Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1160 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r X1161, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1161, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "CSF Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1161 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r X1162, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1162, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "IRN Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1162 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+```{r X1163, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1163, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "PHD_PaMP_Post_and_LatHy Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1163 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1164, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1164, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "PR_p3Tg_L Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1164 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1165, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1165, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "PVG Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1165 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
+
+```{r X1166, echo = FALSE}
+    ggplot(data = new, aes(factor(Treatment), X1166, fill = Genotype)) +
+    geom_violin() +
+    #geom_boxplot(width = 0.1, outlier.color = "red") +
+    geom_jitter(height = 0, width = 0.3, aes(color = Genotype)) +
+    labs(x = "Treatment",
+         y = "",
+         title = "BLA Right",
+         subtitle = "Red points denoting outliers")
+  
+    mylm <- lm(X1166 ~ Treatment * Genotype * Time.Point, new)
+    summary(mylm)
+    anova(mylm)
+```
