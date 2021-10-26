@@ -1,0 +1,79 @@
+---
+title: "fdrcorrections"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+
+timepointleft <- read.csv("TimePointPValueLeft - Sheet1.csv")
+timepointright <- read.csv("TimePointPValueRight - Sheet1.csv")
+treatmentgenotypetimepointleft <- read.csv("TreatmentGenotypeTimePointPValueLeft - Sheet1.csv")
+treatmentgenotypetimepointright <- read.csv("TreatmentGenotypeTimePointPValueRight - Sheet1.csv")
+treatmentleft <- read.csv("TreatmentPValueLeft - Sheet1.csv")
+treatmentright <- read.csv("TreatmentPValueRight - Sheet1.csv")
+treatmenttimepointleft <- read.csv("TreatmentTimePointLeftPvalues - Sheet1.csv")
+treatmenttimepointright <- read.csv("TreatmentTimePointRightPvalues - Sheet1.csv")
+treatmentgenotypeleft <- read.csv("Treatment_GenotypePValueLeft - Sheet1.csv")
+treatmentgenotyperight <- read.csv("Treatment_GenotypePValueRight - Sheet1.csv")
+genotypeleft <- read.csv("GenotypePValueLeft - Sheet1.csv")
+genotyperight <- read.csv("GenotypePValueRight - Sheet1.csv")
+genotypetimepointleft <- read.csv("GenotypeTimePointPValueLeft - Sheet1.csv")
+genotypetimepointright <- read.csv("GenotypeTimePointPValueRight - Sheet1.csv")
+```
+
+```{r corrections-timepoint-left, echo = FALSE}
+p.adjust(timepointleft$PValue, method = "fdr", n = 165)
+```
+
+```{r corrections-timepoint-right, echo = FALSE}
+p.adjust(timepointright$PValue, method = "fdr", n = 165)
+```
+
+```{r corrections-treatmentgenotypetimepoint-left, echo = FALSE}
+p.adjust(treatmentgenotypetimepointleft$PValue, method = "fdr", n = 165)
+```
+
+```{r corrections-treatmentgenotypetimepoint-right, echo = FALSE}
+p.adjust(treatmentgenotypetimepointright$PValue, method = "fdr", n = 165)
+```
+
+```{r corrections-treatment-left, echo = FALSE}
+p.adjust(treatmentleft$PValue, method = "fdr", n = 165)
+```
+
+```{r corrections-treatment-right, echo = FALSE}
+p.adjust(treatmentright$PValue, method = "fdr", n = 165)
+```
+
+```{r corrections-treatmenttimepoint-left, echo = FALSE}
+p.adjust(treatmenttimepointleft$PValue, method = "fdr", n = 165)
+```
+
+```{r corrections-treatmenttimepoint-right, echo = FALSE}
+p.adjust(treatmenttimepointright$PValue, method = "fdr", n = 165)
+```
+
+```{r corrections-treatmentgenotype-left, echo = FALSE}
+p.adjust(treatmentgenotypeleft$PValue, method = "fdr", n = 165)
+```
+
+```{r corrections-treatmentgenotype-right, echo = FALSE}
+p.adjust(treatmentgenotyperight$PValue, method = "fdr", n = 165)
+```
+
+```{r corrections-genotype-left, echo = FALSE}
+p.adjust(genotypeleft$PValue, method = "fdr", n = 165)
+```
+
+```{r corrections-genotype-right, echo = FALSE}
+p.adjust(genotyperight$PValue, method = "fdr", n = 165)
+```
+
+```{r corrections-genotypetimepoint-left, echo = FALSE}
+p.adjust(genotypetimepointleft$PValue, method = "fdr", n = 165)
+```
+
+```{r corrections-genotypetimepoint-right, echo = FALSE}
+p.adjust(genotypetimepointright$PValue, method = "fdr", n = 165)
+```
