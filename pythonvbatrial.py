@@ -9,134 +9,135 @@ import numpy as np
 import gzip 
 import os, glob
 import pandas as pd
+import itertools
+from nilearn.input_data import NiftiMasker
+from nilearn.image import get_data
+import matplotlib.pyplot as plt
+import sklearn
 
-n_subjects = 100
-#from nilearn import datasets
-# oasis_dataset = datasets.fetch_oasis_vbm(n_subjects=n_subjects)
-gray_matter_map_filenames = oasis_dataset.gray_matter_maps()
-age = oasis_dataset.ext_vars['age'].astype(float)
 mouse_images = []
-mouse_images_folder = '/Users/akhilbedapudinew/Desktop/Bass_Independent_Study/All_Images/AD5x/reg_images/'
-mouse_images = glob.glob(os.path.join(mouse_images_folder,'*.nii.gz'))
-###############################################################################
-# Sex is encoded as 'M' or 'F'. Hence, we make it a binary variable.
-
-excel_path = '/Users/akhilbedapudinew/Desktop/Bass_Independent_Study/MouseInfo.xlsx'
+mouse_images_folder = ['/Users/AkhilBedapudi/Desktop/Bass_Independent_Study/All_Images/AD5x/reg_images/', '/Users/AkhilBedapudi/Desktop/Bass_Independent_Study/All_Images/AD5x/reg_images/']
+mifl =list(itertools.chain.from_iterable(itertools.repeat(mouse_images_folder, 102)))
+fileextension = ['_T2_to_MDT.nii.gz', '_T2_to_MDT.nii.gz']
+fileextension204 = list(itertools.chain.from_iterable(itertools.repeat(fileextension, 102)))
+excel_path = '/Users/AkhilBedapudi/Desktop/Bass_Independent_Study/MouseInfo.xlsx'
 mouse_database = pd.read_excel(excel_path)
-mouse_database.add('FilePath')
-genotypes = mouse_database.Genotype
-timepoints = list(mouse_database.TimePoint)
+#genotypes = mouse_database.Genotype
+#timepoints = list(mouse_database.TimePoint)
+timepointstring = ['1', '2', '3','1', '2', '3','1', '2', '3', '1', '2', '3', '1', '2', '3', '1', '2', '3', '1', '2', '3', '1', '2', '3', '1', '2', '3', '1', '2', '3', '1', '2', '3', '1', '2', '3', '1', '2', '3', '1', '2', '3', '1', '2', '3', '1', '2', '3', '1', '2', '3', '1', '2', '3', '1', '2', '3', '1', '2', '3' ,'1', '2', '3','1', '2', '3','1', '2', '3', '1', '2', '3', '1', '2', '3', '1', '2', '3', '1', '2', '3', '1', '2', '3', '1', '2', '3', '1', '2', '3', '1', '2', '3', '1', '2', '3', '1', '2', '3', '1', '2', '3', '1', '2', '3', '1', '2', '3', '1', '2', '3', '1', '2', '3', '1', '2', '3', '1', '2', '3' , '1', '2', '3', '1', '2', '3','1', '2', '3','1', '2', '3','1', '2', '3','1', '2', '3','1', '2', '3','1', '2', '3','1', '2', '3','1', '2', '3','1', '2', '3', '1', '2', '3', '1', '2', '3', '1', '2', '3', '1', '2', '3', '1', '2', '3', '1', '2', '3', '1', '2', '3', '1', '2', '3', '1', '2', '3', '1', '2', '3', '1', '2', '3', '1', '2', '3', '1', '2', '3', '1', '2', '3', '1', '2', '3', '1', '2', '3', '1', '2', '3' ]
 mouse_names = list(mouse_database.Mouse)
 mouse_paths = []
-i=0
-for mouse_name in mouse_names:
-    mouse_path = os.path.join(mouse_images_folder,mouse_name+timepoints[i]+'_T2_to_MDT.nii.gz')
-    i+1
-    
-pd.Series(mouse_path)
-sex = oasis_dataset.ext_vars['mf'] == 'F'
+filepathmousenames = [''.join(z) for z in zip(mifl, mouse_names)]
+filepathtimepoints = [''.join(z) for z in zip(filepathmousenames, timepointstring)]
+fullfilepaths = [''.join(z) for z in zip(filepathtimepoints,fileextension204)]
+gray_matter_map_filenames = fullfilepaths
+timepoint = mouse_database.iloc[:,2]
+genotype = mouse_database.iloc[:,3]
+treatment = mouse_database.iloc[:,4]
 
-###############################################################################
-# Print basic information on the dataset.
-#print('First gray-matter anatomy image (3D) is located at: %s' %
-      oasis_dataset.gray_matter_maps[0])  # 3D data
-#print('First white-matter anatomy image (3D) is located at: %s' %
-      oasis_dataset.white_matter_maps[0])  # 3D data
+print('First gray-matter anatomy image (3D) is located at: %s' %
+      gray_matter_map_filenames[0])  # 3D data
 
-###############################################################################
-# Get a mask image: A mask of the  cortex of the ICBM template.
-gm_mask = datasets.fetch_icbm152_brain_gm_mask()
+from sklearn.model_selection import train_test_split
+gm_imgs_train, gm_imgs_test, timepoint_train, timepoint_test = train_test_split(
+    gray_matter_map_filenames, timepoint, train_size=.6, random_state=0)
 
-###############################################################################
-# Resample the images, since this mask has a different resolution.
-from nilearn.image import resample_to_img
-mask_img = resample_to_img(
-    gm_mask, gray_matter_map_filenames[0], interpolation='nearest')
 
-#############################################################################
-# Analyse data
-# ------------
-#
-# First, we create an adequate design matrix with three columns: 'age',
-# 'sex', 'intercept'.
-import pandas as pd
-import numpy as np
-intercept = np.ones(n_subjects)
-design_matrix = pd.DataFrame(np.vstack((age, sex, intercept)).T,
-                             columns=['age', 'sex', 'intercept'])
+nifti_masker = NiftiMasker(
+    standardize=False,
+    smoothing_fwhm=2,
+    memory='nilearn_cache')  # cache options
+gm_maps_masked = nifti_masker.fit_transform(gm_imgs_train)
 
-#############################################################################
-# Let's plot the design matrix.
-from nilearn.plotting import plot_design_matrix
+# The features with too low between-subject variance are removed using
+# :class:`sklearn.feature_selection.VarianceThreshold`.
+from sklearn.feature_selection import VarianceThreshold
+variance_threshold = VarianceThreshold(threshold=.01)
+gm_maps_thresholded = variance_threshold.fit_transform(gm_maps_masked)
 
-ax = plot_design_matrix(design_matrix)
-ax.set_title('Second level design matrix', fontsize=12)
-ax.set_ylabel('maps')
+# Then we convert the data back to the mask image in order to use it for
+# decoding process
+mask = nifti_masker.inverse_transform(variance_threshold.get_support())
 
-##########################################################################
-# Next, we specify and fit the second-level model when loading the data and
-# also smooth a little bit to improve statistical behavior.
 
-from nilearn.glm.second_level import SecondLevelModel
-second_level_model = SecondLevelModel(smoothing_fwhm=2.0, mask_img=mask_img)
-second_level_model.fit(gray_matter_map_filenames,
-                       design_matrix=design_matrix)
+from nilearn.decoding import DecoderRegressor
+decoder = DecoderRegressor(estimator='svr', mask=mask,
+                           scoring='neg_mean_absolute_error',
+                           screening_percentile=1,
+                           n_jobs=1)
+# Fit and predict with the decoder
+decoder.fit(gm_imgs_train, timepoint_train)
 
-##########################################################################
-# Estimating the contrast is very simple. We can just provide the column
-# name of the design matrix.
-z_map = second_level_model.compute_contrast(second_level_contrast=[1, 0, 0],
-                                            output_type='z_score')
+# Sort test data for better visualization (trend, etc.)
 
-###########################################################################
-# We threshold the second level contrast at uncorrected p < 0.001 and plot it.
-from nilearn import plotting
-from nilearn.glm import threshold_stats_img
-_, threshold = threshold_stats_img(
-    z_map, alpha=.05, height_control='fdr')
-print('The FDR=.05-corrected threshold is: %.3g' % threshold)
+timepointtest = pd.Series(timepoint_test)
+timepoint_test = timepointtest.sort_values(ascending=False)
+perm = np.argsort(timepoint_test)[::-1]
+gm_imgs_test = np.array(gm_imgs_test)[perm]
+timepoint_pred = decoder.predict(gm_imgs_test)
 
-display = plotting.plot_stat_map(
-    z_map, threshold=threshold, colorbar=True, display_mode='z',
-    cut_coords=[-4, 26],
-    title='age effect on grey matter density (FDR = .05)')
-plotting.show()
+prediction_score = -np.mean(decoder.cv_scores_['beta'])
 
-###########################################################################
-# We can also study the effect of sex by computing the contrast, thresholding
-# it and plot the resulting map.
+print("=== DECODER ===")
+print("explained variance for the cross-validation: %f" % prediction_score)
+print("")
 
-z_map = second_level_model.compute_contrast(second_level_contrast='sex',
-                                            output_type='z_score')
-_, threshold = threshold_stats_img(
-    z_map, alpha=.05, height_control='fdr')
-plotting.plot_stat_map(
-    z_map, threshold=threshold, colorbar=True,
-    title='sex effect on grey matter density (FDR = .05)')
+weight_img = decoder.coef_img_['beta']
 
-###########################################################################
-# Note that there does not seem to be any significant effect of sex on
-# grey matter density on that dataset.
+# Create the figure
+from nilearn.plotting import plot_stat_map, show
+bg_filename = gray_matter_map_filenames[0]
+z_slice = 0
+display = plot_stat_map(weight_img, bg_img=bg_filename,
+                        display_mode='z', cut_coords=[z_slice])
+display.title("SVM weights")
+show()
 
-###########################################################################
-# Generating a report
-# -------------------
-# It can be useful to quickly generate a
-# portable, ready-to-view report with most of the pertinent information.
-# This is easy to do if you have a fitted model and the list of contrasts,
-# which we do here.
+plt.figure(figsize=(6, 4.5))
+plt.suptitle("Decoder: Mean Absolute Error %.2f years" % prediction_score)
+linewidth = 3
+plt.plot(timepoint_test, label="True Time Point", linewidth=linewidth)
+plt.plot(timepoint_pred, '--', c="g", label="Predicted Time Point", linewidth=linewidth)
+plt.ylabel("Time Point")
+plt.xlabel("subject")
+plt.legend(loc="best")
+plt.figure(figsize=(6, 4.5))
+plt.plot(timepoint_test - timepoint_pred, label="True Time Point - predicted Time Point",
+         linewidth=linewidth)
+plt.xlabel("subject")
+plt.legend(loc="best")
 
-from nilearn.reporting import make_glm_report
+print("Massively univariate model")
 
-icbm152_2009 = datasets.fetch_icbm152_2009()
-report = make_glm_report(model=second_level_model,
-                         contrasts=['age', 'sex'],
-                         bg_img=icbm152_2009['t1'],
-                         )
+gm_maps_masked = NiftiMasker().fit_transform(gray_matter_map_filenames)
+data = variance_threshold.fit_transform(gm_maps_masked)
 
-#########################################################################
-# We have several ways to access the report:
+# Statistical inference
+from nilearn.mass_univariate import permuted_ols
+neg_log_pvals, t_scores_original_data, _ = permuted_ols(
+    timepoint, data,  # + intercept as a covariate by default
+    n_perm=2000,  # 1,000 in the interest of time; 10000 would be better
+    verbose=1, # display progress bar
+    n_jobs=1)  # can be changed to use more CPUs
+signed_neg_log_pvals = neg_log_pvals * np.sign(t_scores_original_data)
+signed_neg_log_pvals_unmasked = nifti_masker.inverse_transform(
+    [variance_threshold.inverse_transform(signed_neg_log_pvals)])
 
-# report  # This report can be viewed in a notebook
-# report.save_as_html('report.html')
-# report.open_in_browser()
+# Show results
+threshold = -np.log10(0.1)  # 10% corrected
+
+fig = plt.figure(figsize=(5.5, 7.5), facecolor='k')
+
+display = plot_stat_map(signed_neg_log_pvals_unmasked, bg_img=bg_filename,
+                        threshold=threshold, cmap=plt.cm.RdBu_r,
+                        display_mode='z', cut_coords=[z_slice],
+                        figure=fig)
+title = ('Negative $\\log_{10}$ p-values'
+         '\n(Non-parametric + max-type correction)')
+display.title(title, y=1.2)
+n_detections = (get_data(signed_neg_log_pvals_unmasked) > threshold).sum()
+print('\n%d detections' % n_detections)
+
+show()
+
+
